@@ -33,7 +33,7 @@ func _process(delta):
 	elif self.is_eating:
 		self.speed=0
 		$HyenaAnimation.animation = "attack"
-		$HyenaAnimation.play()
+		# $HyenaAnimation.play()
 	elif self.is_dying:
 		self.speed=0
 		$HyenaAnimation.animation = "die"
@@ -49,6 +49,7 @@ func _process(delta):
 		else:
 			$HyenaAnimation.flip_h = false
 	elif velocity.y != 0:
+		$HyenaAnimation.animation = "walk"
 		if velocity.y > 0:
 			$HyenaAnimation.transform.rotated(90)
 		else:
