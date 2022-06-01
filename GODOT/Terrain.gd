@@ -2,6 +2,7 @@ extends Node2D
 
 var height = 40
 var width = 100
+var tile_size = 32
 
 var noise = OpenSimplexNoise.new()
 
@@ -20,10 +21,21 @@ func fill_water():
 	for x in width:
 		for y in height:
 			var noise_value = noise.get_noise_2d(x, y)
-			print(noise_value)
-			if (noise_value > 0.3):
+			if (noise_value < -0.3):
 				water.set_cell(x, y, water_tile)
 	water.update_bitmask_region()
+
+func fill_forests():	
+	var trees = get_node("Trees")
+	var trees_tile = trees.tile_set.find_tile_by_name("Trees_Spring")
+	var tile_scale = 2.5
+	for x in width:
+		for y in height:
+			var noise_value = noise.get_noise_2d(x, y)
+			if (noise_value > 0.3 and noise_value < 0.6):
+				trees.set_cell(x*tile_scale, y*tile_scale, trees_tile)
+
+	trees.update_bitmask_region()
 
 func _ready():
 	randomize()
@@ -34,10 +46,11 @@ func _ready():
 	# Debug + Extra options TODO Clean
 	# noise.persistance = 2
 	# noise.lacunarity = 50
-	# noise.get_image(100, 40).save_png("res://saved_texture.png")
+	# noise.get_image(width, height).save_png("res://saved_texture.png")
 
 	fill_ground()
 	fill_water()
+	fill_forests()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
