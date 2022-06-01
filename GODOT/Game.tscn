@@ -20,9 +20,8 @@ anchor_mode = 0
 current = true
 
 [node name="Rain" parent="." instance=ExtResource( 3 )]
-visible = false
-amount = 10000
-lifetime = 50.0
+amount = 12000
+lifetime = 10.0
 speed_scale = 5.08
 script = ExtResource( 4 )
 
