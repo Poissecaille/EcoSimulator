@@ -1,12 +1,6 @@
-extends Area2D
-
-
-export var speed = 100
-var health = 10
+extends "Animal.gd"
 var screen_size
 var terrain
-export var is_eating = false
-export var is_dying = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
