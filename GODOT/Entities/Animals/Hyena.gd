@@ -35,8 +35,9 @@ func _process(delta):
 		$HyenaAnimation.animation = "die"
 	else:
 		$HyenaAnimation.animation = "idle"
+
 	move_and_collide(velocity*delta)
-	
+
 	if velocity.x != 0:
 		$HyenaAnimation.animation = "walk"
 		if velocity.x > 0:
