@@ -1,10 +1,13 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Hyena.gd" type="Script" id=1]
 [ext_resource path="res://Assets/2 Hyena/Hyena_walk.png" type="Texture" id=2]
 [ext_resource path="res://Assets/2 Hyena/Hyena_attack.png" type="Texture" id=3]
 [ext_resource path="res://Assets/2 Hyena/Hyena_death.png" type="Texture" id=4]
 [ext_resource path="res://Assets/2 Hyena/Hyena_idle.png" type="Texture" id=5]
+
+[sub_resource type="CapsuleShape2D" id=24]
+radius = 14.0
 
 [sub_resource type="AtlasTexture" id=20]
 flags = 4
@@ -146,7 +149,12 @@ __meta__ = {
 }
 speed = 300
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 5, 10 )
+rotation = 1.5708
+shape = SubResource( 24 )
+
 [node name="HyenaAnimation" type="AnimatedSprite" parent="."]
-scale = Vector2( 10, 10 )
+scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 7 )
 animation = "attack"

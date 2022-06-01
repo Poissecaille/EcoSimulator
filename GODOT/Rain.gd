@@ -1,6 +1,5 @@
 extends Particles2D
 
-
 var screen_size
 var terrain
 
