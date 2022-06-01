@@ -144,8 +144,8 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+speed = 300
 
 [node name="HyenaAnimation" type="AnimatedSprite" parent="."]
-scale = Vector2( 2, 2 )
+scale = Vector2( 10, 10 )
 frames = SubResource( 7 )
-animation = "New Anim"

@@ -9,9 +9,17 @@ script = ExtResource( 2 )
 [node name="Ground" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 1000, 0, 0, 64, 0, 0 )
 format = 1
 
 [node name="Water" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 format = 1
+
+[node name="Trees" type="TileMap" parent="."]
+scale = Vector2( 0.4, 0.4 )
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 1114179, 2, 983063, 1114180, 2, 2949176, 1114181, 2, 4259887, 1114182, 2, 524369, 1114183, 2, -65516, 1114184, 2, 589834, 1114185, 2, 1572908, 1114186, 2, -65459, 1179714, 2, 2621533, 1179715, 2, 1638432, 1245249, 2, 4194345, 1245250, 2, -393179, 1310785, 2, 1245196 )
