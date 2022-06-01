@@ -1,12 +1,6 @@
-extends Area2D
-
-
-export var speed = 100
-var health = 10
+extends "Animal.gd"
 var screen_size
 var terrain
-export var is_eating = false
-export var is_dying = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,9 +35,8 @@ func _process(delta):
 		$HyenaAnimation.animation = "die"
 	else:
 		$HyenaAnimation.animation = "idle"
-	position += velocity * delta
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
+	move_and_collide(velocity*delta)
+	
 	if velocity.x != 0:
 		$HyenaAnimation.animation = "walk"
 		if velocity.x > 0:

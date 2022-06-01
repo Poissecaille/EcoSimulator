@@ -51,6 +51,8 @@ func _ready():
 	fill_ground()
 	fill_water()
 	fill_forests()
+	
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

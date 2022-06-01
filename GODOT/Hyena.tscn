@@ -7,7 +7,7 @@
 [ext_resource path="res://Assets/2 Hyena/Hyena_idle.png" type="Texture" id=5]
 
 [sub_resource type="CapsuleShape2D" id=24]
-radius = 14.0
+radius = 24.9999
 
 [sub_resource type="AtlasTexture" id=20]
 flags = 4
@@ -142,15 +142,14 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Hyena" type="Area2D"]
+[node name="Hyena" type="KinematicBody2D"]
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-speed = 300
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 5, 10 )
+position = Vector2( 8, 14 )
 rotation = 1.5708
 shape = SubResource( 24 )
 

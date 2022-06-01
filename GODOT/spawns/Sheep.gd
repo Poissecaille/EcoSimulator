@@ -38,10 +38,8 @@ func process_inputs(delta):
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
 		# $HyenaAnimation.play()
-		
-	position += velocity * delta
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
+	
+	move_and_collide(velocity*delta)
 	if velocity.y > 0:
 		$AnimatedSprite.animation = "walk_bot"
 	if velocity.y < 0:
