@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://spawns/actor.gd" type="Script" id=1]
+[ext_resource path="res://spawns/Sheep.gd" type="Script" id=1]
 [ext_resource path="res://spawns/sprites/sheep_walk.png" type="Texture" id=2]
 
 [sub_resource type="Animation" id=1]
@@ -85,4 +85,7 @@ vframes = 4
 frame = 8
 
 [node name="MovementTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="MovementTimer" to="." method="_on_MovementTimer_timeout"]

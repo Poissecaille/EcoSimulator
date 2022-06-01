@@ -2,12 +2,18 @@ extends "pawn.gd"
 
 onready var Grid = get_parent()
 var direction
-
+var rng = RandomNumberGenerator.new()
 
 func _ready():
+	rng.randomize()
 	update_look_direction(Vector2(1, 0))
 
 func _process(delta):
+	pass
+
+
+
+func input_based_movement():
 	var input_direction = get_input_direction()
 	if not input_direction:
 		return
@@ -17,7 +23,8 @@ func _process(delta):
 	if target_position:
 		move_to(target_position)
 	else:
-		bump()
+		return
+
 
 func get_input_direction():
 	return Vector2(
@@ -58,9 +65,17 @@ func move_to(target_position):
 	
 	set_process(true)
 
+func _on_MovementTimer_timeout():
+	var x = rng.randi_range(-1,1)
+	var y = rng.randi_range(-1,1)
+	
+	var input_direction = Vector2(x,y)
+	if not input_direction:
+		return
+	update_look_direction(input_direction)
 
-func bump():
-	set_process(false)
-	#$AnimationPlayer.play("bump")
-	#yield($AnimationPlayer, "animation_finished")
-	set_process(true)
+	var target_position = Grid.request_move(self, input_direction)
+	if target_position:
+		move_to(target_position)
+	else:
+		return

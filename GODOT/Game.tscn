@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://terrain.png" type="Texture" id=1]
 [ext_resource path="res://spawns/Sheep.tscn" type="PackedScene" id=2]
 [ext_resource path="res://grid/grid.gd" type="Script" id=3]
-[ext_resource path="res://spawns/Sheep.gd" type="Script" id=4]
 
 [sub_resource type="TileSet" id=1]
 0/name = "terrain_atlas"
@@ -47,4 +46,3 @@ script = ExtResource( 3 )
 
 [node name="Sheep" parent="Interactive" instance=ExtResource( 2 )]
 position = Vector2( 371, 387 )
-script = ExtResource( 4 )

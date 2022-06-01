@@ -15,7 +15,7 @@ func _process(delta):
 	if target_position:
 		move_to(target_position)
 	else:
-		bump()
+		return
 
 func get_input_direction():
 	return Vector2(
@@ -47,9 +47,4 @@ func move_to(target_position):
 	
 	set_process(true)
 
-
-func bump():
-	set_process(false)
-	$AnimationPlayer.play("bump")
-	yield($AnimationPlayer, "animation_finished")
-	set_process(true)
+	
