@@ -38,6 +38,7 @@ func fill_forests():
 
 func _ready():
 	randomize()
+	print(randi())
 	noise.seed = randi()
 	noise.octaves = 1
 	noise.period = 10
