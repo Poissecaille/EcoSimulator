@@ -3,13 +3,15 @@ extends Area2D
 
 export var speed = 100
 var health = 10
-var screen_size # Size of the game window.
+var screen_size
+var terrain
 export var is_eating = false
 export var is_dying = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	screen_size = get_viewport_rect().size
+	terrain=get_parent().get_node("Terrain")
+	screen_size = Vector2(terrain.width*32,terrain.height*32)
 
 func start(pos):
 	position = pos

@@ -1,10 +1,9 @@
 extends Node2D
-
-var height = 40
-var width = 100
 var tile_size = 32
 
 var noise = OpenSimplexNoise.new()
+export var height = 40
+export var width = 100
 
 func fill_ground():
 	var ground = get_node("Ground")
