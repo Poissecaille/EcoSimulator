@@ -4,7 +4,7 @@ var screen_size
 var terrain
 var time = 0
 # var timer_on = false
-var timer_limit = 5
+export var timer_rain_variation = 5
 var rain_direction = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
@@ -20,8 +20,8 @@ func _process(delta):
 	#if(timer_on):
 	time+=delta
 
-	if (time > timer_limit):
-		time -= timer_limit
+	if (time > timer_rain_variation):
+		time -= timer_rain_variation
 		#print(fmod(time,1)*1000)
 		rain_direction.randomize()
 		self.process_material.set_gravity(Vector3(rain_direction.randf_range(-50.0, 50.0),100,0))
