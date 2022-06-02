@@ -13,7 +13,7 @@ func get_hearing_shape():
 	points.push_back(pos)
 	
 	for i in range(nb_points + 1):
-		var point = deg2rad(i * 360 / nb_points - 90)
+		var point = deg2rad(i * 360 / nb_points)
 		points.push_back(pos + Vector2(cos(point), sin(point)) * self.hearing_distance)
 	return points
 	
@@ -25,8 +25,9 @@ func get_vision_shape():
 	var angle_offset = (180 - self.fov_radius) / 2
 	points.push_back(pos)
 	
+	var angle = rad2deg(get_parent().velocity.angle()) - 90
 	for i in range(nb_points + 1):
-		var point = deg2rad(angle_offset + i * (fov_radius - angle_offset) / nb_points - 90)
+		var point = deg2rad(angle_offset + i * (fov_radius - angle_offset) / nb_points + angle)
 		points.push_back(pos + Vector2(cos(point), sin(point)) * self.view_distance)
 	return points
 
@@ -41,4 +42,7 @@ func _ready():
 	pass
 
 func _process(delta):
+	var v = get_parent().velocity
+	if (v[0] != 0 || v[1] != 0):
+		update()
 	pass
