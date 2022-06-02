@@ -31,4 +31,4 @@ script = ExtResource( 4 )
 [node name="Animal" parent="." instance=ExtResource( 5 )]
 
 [node name="Sheep" parent="." instance=ExtResource( 6 )]
-position = Vector2( 70, 47 )
+position = Vector2( 489, 307 )

@@ -111,14 +111,34 @@ radius = 20.0
 
 [node name="Sheep" type="KinematicBody2D"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+z_index = 4096
 frames = SubResource( 1 )
 animation = "walk_left"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource( 18 )
+
+[node name="MovementTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="PanicTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="RegenTimer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[node name="TestActionTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="MovementTimer" to="." method="_on_MovementTimer_timeout"]
+[connection signal="timeout" from="PanicTimer" to="." method="_on_PanicTimer_timeout"]
+[connection signal="timeout" from="RegenTimer" to="." method="_on_RegenTimer_timeout"]
+[connection signal="timeout" from="TestActionTimer" to="." method="_on_TestActionTimer_timeout"]
