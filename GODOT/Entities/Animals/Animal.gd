@@ -20,4 +20,4 @@ func process_hunger(delta):
 
 func _process(delta):
 	process_hunger(delta)
-
+	
