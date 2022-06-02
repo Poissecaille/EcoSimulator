@@ -34,7 +34,7 @@ func start(pos):
 func _process(delta):
 	$AnimatedSprite.play()
 	check_health()
-	process_inputs()
+	#process_inputs()
 	move(delta)
 	update_animation()
 

@@ -11,6 +11,7 @@ tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 cell_custom_transform = Transform2D( 1000, 0, 0, 64, 0, 0 )
 format = 1
+tile_data = PoolIntArray( 393208, 0, 0 )
 
 [node name="Water" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -19,7 +20,6 @@ format = 1
 
 [node name="Trees" type="TileMap" parent="."]
 scale = Vector2( 0.4, 0.4 )
-z_index = 1
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 show_collision = true
