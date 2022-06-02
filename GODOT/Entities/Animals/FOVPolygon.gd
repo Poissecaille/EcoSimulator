@@ -42,7 +42,9 @@ func _ready():
 	pass
 
 func _process(delta):
+	# Drawings
 	var v = get_parent().velocity
 	if (v[0] != 0 || v[1] != 0):
 		update()
+	self.polygon
 	pass

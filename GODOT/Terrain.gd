@@ -14,7 +14,7 @@ func fill_ground():
 	ground.update_bitmask_region()
 
 
-func fill_water():	
+func fill_water():
 	var water = get_node("Water")
 	var water_tile = water.tile_set.find_tile_by_name("Water")
 	for x in width:
@@ -24,7 +24,7 @@ func fill_water():
 				water.set_cell(x, y, water_tile)
 	water.update_bitmask_region()
 
-func fill_forests():	
+func fill_forests():
 	var trees = get_node("Trees")
 	var trees_tile = trees.tile_set.find_tile_by_name("Trees_Spring")
 	var tile_scale = 2.5
@@ -51,9 +51,6 @@ func _ready():
 	fill_ground()
 	fill_water()
 	fill_forests()
-	
-	
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
