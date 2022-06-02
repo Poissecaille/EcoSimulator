@@ -2,5 +2,5 @@
 
 [ext_resource path="res://Entities/Animals/FOVPolygon.gd" type="Script" id=1]
 
-[node name="FOVPolygon" type="CollisionPolygon2D"]
+[node name="FOVPolygon" type="Area2D"]
 script = ExtResource( 1 )

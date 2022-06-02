@@ -1,9 +1,10 @@
-extends CollisionPolygon2D
+extends Area2D
 
 export var fov_radius = 150
 export var hearing_distance = 80
 export var view_distance = 300
 export var show_fov = true
+var parent_owner_id = null
 
 func get_hearing_shape():
 	var points = PoolVector2Array()
@@ -39,6 +40,7 @@ func _draw():
 		draw_polygon(vision_points, PoolColorArray([Color(0.0, 1.0, 0.0)]))
 
 func _ready():
+	self.parent_owner_id = self.create_shape_owner(self.owner)
 	pass
 
 func _process(delta):
@@ -46,5 +48,12 @@ func _process(delta):
 	var v = get_parent().velocity
 	if (v[0] != 0 || v[1] != 0):
 		update()
-	self.polygon
+
+	var vision_shape = ConvexPolygonShape2D.new()
+	vision_shape.set_point_cloud(get_vision_shape())
+	self.shape_owner_clear_shapes(parent_owner_id)
+	self.shape_owner_add_shape(parent_owner_id, vision_shape)
 	pass
+
+func _on_FOVPolygon_area_entered(area):
+	pass # Replace with function body.
