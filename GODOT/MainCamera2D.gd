@@ -30,7 +30,7 @@ func _physics_process(delta):
 	_prev_mouse_pos = get_local_mouse_position()
 
 func _unhandled_input(event):
-	print("Camera zoom", camera_zoom)
+	#print("Camera zoom", camera_zoom)
 	if event is InputEventMouseButton:
 		if wheel:
 			if event.button_index == BUTTON_WHEEL_UP and\
