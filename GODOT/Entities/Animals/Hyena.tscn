@@ -145,11 +145,9 @@ animations = [ {
 
 [node name="Hyena" type="KinematicBody2D"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="FOVPolygon" parent="." instance=ExtResource( 6 )]
+show_fov = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 8, 14 )
@@ -160,3 +158,5 @@ shape = SubResource( 24 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 7 )
 animation = "attack"
+
+[connection signal="area_entered" from="FOVPolygon" to="FOVPolygon" method="_on_FOVPolygon_area_entered"]
