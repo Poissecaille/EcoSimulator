@@ -4,8 +4,9 @@ var terrain
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	terrain=get_parent().get_node("Terrain")
-	screen_size = Vector2(terrain.width*32,terrain.height*32)
+	print("Hyena spouned in the Rinté")
+#	terrain=get_parent().get_node("Terrain")
+#	screen_size = Vector2(terrain.width*32,terrain.height*32)
 
 func start(pos):
 	position = pos

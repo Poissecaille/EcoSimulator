@@ -1,7 +1,8 @@
 extends GridContainer
 
 var MAX_BTN_TEXT_LENGTH = 8
-var persos = ["Shape 1", "Shape 2", "Shape 3", "Shape 4"]
+# Add an entity name in this array to generate a button
+var persos = ["Sheep", "Hyena"]
 
 func _ready():
 	for i in range(len(persos)):
@@ -22,4 +23,11 @@ func _ready():
 		self.add_child(btn)
 
 func click_the_dynamic_button_mother_fucker(name):
-	print("Add new shape -> ", name)
+	var root = get_tree().root
+	var formated_scene = "res://Entities/Animals/%s.tscn"
+	var scene_path = formated_scene % name
+	print(scene_path)
+	var entity_scene = load(scene_path)
+	if entity_scene:
+		var entity = entity_scene.instance()
+		root.add_child(entity)

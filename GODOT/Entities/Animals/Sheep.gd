@@ -20,8 +20,8 @@ var rng = RandomNumberGenerator.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
-	terrain=get_parent().get_node("Terrain")
-	screen_size = Vector2(terrain.width*32,terrain.height*32)
+#	terrain=get_parent().get_node("Terrain")
+#	screen_size = Vector2(terrain.width*32,terrain.height*32)
 	health=MAX_HEALTH
 	hunger=MAX_HUNGER
 	
@@ -29,8 +29,7 @@ func _ready():
 func start(pos):
 	position = pos
 	show()
-	
-	
+
 func _process(delta):
 	$AnimatedSprite.play()
 	check_health()

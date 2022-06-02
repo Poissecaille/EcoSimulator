@@ -11,7 +11,6 @@ tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 cell_custom_transform = Transform2D( 1000, 0, 0, 64, 0, 0 )
 format = 1
-tile_data = PoolIntArray( 393208, 0, 0 )
 
 [node name="Water" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
