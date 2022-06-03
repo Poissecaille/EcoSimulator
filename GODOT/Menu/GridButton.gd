@@ -3,6 +3,9 @@ extends GridContainer
 var MAX_BTN_TEXT_LENGTH = 8
 # Add an entity name in this array to generate a button
 var persos = ["Sheep", "Hyena"]
+var rng = RandomNumberGenerator.new()
+var MAX_TERRAIN_WIDTH = 32 * 100
+var MAX_TERRAIN_HEIGHT = 32 * 40
 
 func _ready():
 	for i in range(len(persos)):
@@ -17,17 +20,26 @@ func _ready():
 		btn.connect(
 			"pressed",
 			self,
-			"click_the_dynamic_button_mother_fucker",
+			"click",
 			[persos[i]]
 		)
 		self.add_child(btn)
 
-func click_the_dynamic_button_mother_fucker(name):
+func random_pos() -> Vector2:
+	rng.randomize()
+	var x = randi() % MAX_TERRAIN_WIDTH
+	var y = randi() % MAX_TERRAIN_HEIGHT
+	return Vector2(x, y)
+	
+
+func click(name):
 	var root = get_tree().root
 	var formated_scene = "res://Entities/Animals/%s.tscn"
 	var scene_path = formated_scene % name
-	print(scene_path)
+	
 	var entity_scene = load(scene_path)
+	print(random_pos())
 	if entity_scene:
 		var entity = entity_scene.instance()
+		entity.start(random_pos())
 		root.add_child(entity)
