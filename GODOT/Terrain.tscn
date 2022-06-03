@@ -19,6 +19,7 @@ format = 1
 
 [node name="Trees" type="TileMap" parent="."]
 scale = Vector2( 0.4, 0.4 )
+z_index = 2
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 show_collision = true

@@ -38,7 +38,6 @@ func click(name):
 	var scene_path = formated_scene % name
 	
 	var entity_scene = load(scene_path)
-	print(random_pos())
 	if entity_scene:
 		var entity = entity_scene.instance()
 		entity.start(random_pos())
