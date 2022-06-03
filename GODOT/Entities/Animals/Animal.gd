@@ -7,6 +7,7 @@ export var is_dying = false
 export var health = 100
 export var hunger = 100
 export var speed = 200
+var velocity = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,4 +21,4 @@ func process_hunger(delta):
 
 func _process(delta):
 	process_hunger(delta)
-
+	

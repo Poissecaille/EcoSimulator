@@ -20,9 +20,6 @@ func start(pos):
 func _process(delta):
 	process_inputs(delta)
 
-
-
-
 func process_inputs(delta):
 	$AnimatedSprite.play()
 	var velocity = Vector2.ZERO # The player's movement vector.
