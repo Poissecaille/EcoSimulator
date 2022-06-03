@@ -12,12 +12,12 @@ func get_hearing_shape():
 	var nb_points = 32
 	var pos = Vector2(0,0)
 	points.push_back(pos)
-	
+
 	for i in range(nb_points + 1):
 		var point = deg2rad(i * 360 / nb_points)
 		points.push_back(pos + Vector2(cos(point), sin(point)) * self.hearing_distance)
 	return points
-	
+
 func get_vision_shape():
 	var points = PoolVector2Array()
 
@@ -25,7 +25,7 @@ func get_vision_shape():
 	var pos = Vector2(0,0)
 	var angle_offset = (180 - self.fov_radius) / 2
 	points.push_back(pos)
-	
+
 	var angle = rad2deg(get_parent().velocity.angle()) - 90
 	for i in range(nb_points + 1):
 		var point = deg2rad(angle_offset + i * (fov_radius - angle_offset) / nb_points + angle)
@@ -56,4 +56,8 @@ func _process(delta):
 	pass
 
 func _on_FOVPolygon_area_entered(area):
+	pass # Replace with function body.
+
+
+func _on_FOVPolygon_body_entered(body:Node):
 	pass # Replace with function body.
