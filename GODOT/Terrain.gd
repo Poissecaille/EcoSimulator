@@ -2,10 +2,29 @@ extends Node2D
 var tile_size = 32
 
 var noise = OpenSimplexNoise.new()
-export var height = 40
+export var height = 100
 export var width = 100
 export var tree_density = 50
+var beach_width = 10
 var tree_density_generator = RandomNumberGenerator.new()
+
+func fill_ocean():
+	var ocean = get_node("Ocean")
+	var ocean_tile = ocean.tile_set.find_tile_by_name("Ocean")
+	for x in range(-(width*2), width*2):
+		for y in range(-(height*2), height*2):
+			if ((y < 0 || y > height) || (x < 0 || x > width)):
+				ocean.set_cell(x, y, ocean_tile)
+	ocean.update_bitmask_region()
+
+func fill_beach():
+	var beach = get_node("Beach")
+	var beach_tile = beach.tile_set.find_tile_by_name("Beach")
+	for x in range(-beach_width, width+beach_width):
+		for y in range(-beach_width, height+beach_width):
+			if ((y < beach_width || y > height - beach_width) || (x < beach_width || x > width - beach_width)):
+				beach.set_cell(x, y, beach_tile)
+	beach.update_bitmask_region()
 
 func fill_ground():
 	var ground = get_node("Ground")
@@ -14,7 +33,6 @@ func fill_ground():
 		for y in height:
 			ground.set_cell(x, y, grass_tile)
 	ground.update_bitmask_region()
-
 
 func fill_water():
 	var water = get_node("Water")
@@ -50,10 +68,14 @@ func _ready():
 	noise.period = 10
 
 	# Debug + Extra options TODO Clean
-	# noise.persistance = 2
-	# noise.lacunarity = 50
-	# noise.get_image(width, height).save_png("res://saved_texture.png")
+	#var test = OpenSimplexNoise.new()
+	#test.seed = randi()
+	#test.persistance = 2
+	#test.lacunarity = 50
+	#test.get_seamless_image(width).save_png("res://saved_texture.png")
 
+	fill_ocean()
+	fill_beach()
 	fill_ground()
 	fill_water()
 	fill_forests()
