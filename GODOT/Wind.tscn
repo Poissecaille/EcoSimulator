@@ -92,5 +92,6 @@ animations = [ {
 
 [node name="Wind" type="AnimatedSprite"]
 scale = Vector2( 0.5, 0.5 )
+z_index = 4096
 frames = SubResource( 17 )
 animation = "blow"
