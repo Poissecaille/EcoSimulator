@@ -11,13 +11,13 @@ func start(pos):
 
 func _process(delta):
 	self.velocity = Vector2.ZERO
-	if Input.is_action_pressed("move_right"):
+	if Input.is_action_pressed("player_right"):
 		self.velocity.x += 1
-	if Input.is_action_pressed("move_left"):
+	if Input.is_action_pressed("player_left"):
 		self.velocity.x -= 1
-	if Input.is_action_pressed("move_down"):
+	if Input.is_action_pressed("player_down"):
 		self.velocity.y += 1
-	if Input.is_action_pressed("move_up"):
+	if Input.is_action_pressed("player_up"):
 		self.velocity.y -= 1
 
 	if self.velocity.length() > 0:
@@ -53,5 +53,7 @@ func _on_HyenaAnimation_animation_finished():
 		hide()
 		$HyenaAnimation.stop()
 
-func _on_FOVPolygon_body_entered(body:Node):
-	pass
+
+
+func _on_FOVPolygon_body_entered(body):
+	print(body)
