@@ -14,7 +14,8 @@ color = Color( 0.00784314, 0.505882, 0.819608, 1 )
 
 [node name="Rain" type="Particles2D"]
 position = Vector2( 250, 177 )
-amount = 800
-lifetime = 3.0
-speed_scale = 1.5
+z_index = 4096
+amount = 10000
+lifetime = 5.0
+speed_scale = 2.0
 process_material = SubResource( 1 )
