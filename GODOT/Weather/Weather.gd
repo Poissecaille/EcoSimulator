@@ -1,6 +1,5 @@
 extends Node2D
 
-
 enum WEATHER {CLEARED,RAINY,FOGGY}
 export(WEATHER) var Weather = WEATHER.CLEARED
 export var rain_direction_timer = 5
@@ -66,6 +65,5 @@ func update_weather(weather):
 	weather_cycle()
 
 func get_weather():
-	print(self.Weather)
 	return self.Weather
 
