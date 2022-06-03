@@ -36,6 +36,9 @@ func fill_forests():
 
 	trees.update_bitmask_region()
 
+var wind_scene = preload("res://Wind.tscn")
+
+
 func _ready():
 	randomize()
 	print(randi())
