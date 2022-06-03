@@ -9,10 +9,9 @@ var seeder
 var terrain
 var screen_size
 var rain_size
-var rain_direction
-var wind = preload("res://Wind.tscn")
-var rain = preload("res://Rain.tscn")
-var fog = preload("res://Fog.tscn")
+var wind
+var rain
+var fog
 
 func _ready():
 	wind = preload("res://Wind.tscn")
@@ -50,7 +49,7 @@ func weather_cycle():
 		nb_wings=0
 		var fog_instance = fog.instance()
 		fog_instance.position=screen_size/2
-		fog_instance.set_scale(Vector2(2,2))
+		fog_instance.set_scale(Vector2(10,10))
 		add_child(fog_instance)
 
 func clear_chilren(node):
