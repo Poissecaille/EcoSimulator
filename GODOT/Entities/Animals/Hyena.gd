@@ -51,3 +51,7 @@ func _process(delta):
 			$HyenaAnimation.transform.rotated(90)
 		else:
 			$HyenaAnimation.transform.rotated(-90)
+
+
+func _on_FOVPolygon_body_entered(body:Node):
+	pass # Replace with function body.
