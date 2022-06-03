@@ -1,13 +1,9 @@
 extends "Animal.gd"
-var screen_size
-var terrain
 var alive = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$HyenaAnimation.play()
-	terrain=get_parent().get_node("Terrain")
-	screen_size = Vector2(terrain.width*32,terrain.height*32)
 
 func start(pos):
 	position = pos
