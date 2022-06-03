@@ -22,7 +22,8 @@ func _ready():
 	seeder=RandomNumberGenerator.new()
 	seeder.randomize()
 	screen_size=Vector2(terrain.width*32,-terrain.height/2) 
-	update_weather(WEATHER.RAINY)
+	#update_weather(WEATHER.RAINY)
+	#get_weather()
 	
 func weather_cycle():
 	if(Weather == WEATHER.CLEARED):
@@ -61,3 +62,7 @@ func update_weather(weather):
 	clear_chilren(self)
 	self.Weather=weather
 	weather_cycle()
+
+func get_weather():
+	print(self.Weather)
+	return self.Weather
