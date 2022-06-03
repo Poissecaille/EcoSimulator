@@ -10,7 +10,8 @@
 [sub_resource type="ConvexPolygonShape2D" id=25]
 
 [sub_resource type="CapsuleShape2D" id=24]
-radius = 24.9999
+radius = 16.0
+height = 12.0001
 
 [sub_resource type="AtlasTexture" id=20]
 flags = 4
@@ -158,7 +159,7 @@ gravity = 0.0
 shape = SubResource( 25 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 8, 14 )
+position = Vector2( 10, 22 )
 rotation = 1.5708
 shape = SubResource( 24 )
 

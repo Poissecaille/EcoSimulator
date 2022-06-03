@@ -1,7 +1,28 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Entities/Animals/Sheep.gd" type="Script" id=1]
 [ext_resource path="res://Assets/6 Sheep/sheep_walk.png" type="Texture" id=2]
+[ext_resource path="res://Entities/Animals/FOVPolygon.tscn" type="PackedScene" id=3]
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=12]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=13]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 384, 0, 128, 128 )
 
 [sub_resource type="AtlasTexture" id=6]
 flags = 4
@@ -63,28 +84,13 @@ flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 384, 256, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=10]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=11]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 128, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=12]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 256, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=13]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 384, 0, 128, 128 )
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"loop": true,
+"name": "walk_top",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
 "loop": true,
 "name": "walk_right",
@@ -99,18 +105,24 @@ animations = [ {
 "loop": true,
 "name": "walk_bot",
 "speed": 5.0
-}, {
-"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
-"loop": true,
-"name": "walk_top",
-"speed": 5.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=18]
-radius = 20.0
+radius = 13.0
+height = 14.0
 
 [node name="Sheep" type="KinematicBody2D"]
 script = ExtResource( 1 )
+health = 10
+max_health = 10
+max_hunger = 50
+hunger = 50
+speed = 100
+
+[node name="FOVPolygon" parent="." instance=ExtResource( 3 )]
+fov_radius = 200
+hearing_distance = 50
+view_distance = 200
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
@@ -128,10 +140,6 @@ autostart = true
 wait_time = 10.0
 one_shot = true
 
-[node name="RegenTimer" type="Timer" parent="."]
-wait_time = 4.0
-autostart = true
-
 [node name="InfectionTimer" type="Timer" parent="."]
 wait_time = 25.0
 one_shot = true
@@ -143,6 +151,5 @@ autostart = true
 
 [connection signal="timeout" from="MovementTimer" to="." method="_on_MovementTimer_timeout"]
 [connection signal="timeout" from="PanicTimer" to="." method="_on_PanicTimer_timeout"]
-[connection signal="timeout" from="RegenTimer" to="." method="_on_RegenTimer_timeout"]
 [connection signal="timeout" from="InfectionTimer" to="." method="_on_InfectionTimer_timeout"]
 [connection signal="timeout" from="TestActionTimer" to="." method="_on_TestActionTimer_timeout"]

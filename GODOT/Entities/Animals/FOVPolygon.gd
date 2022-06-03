@@ -47,9 +47,10 @@ func _ready():
 
 func _process(delta):
 	# Drawings
-	var v = get_parent().velocity
-	if (v[0] != 0 || v[1] != 0):
-		update()
+	if (self.show_fov):
+		var v = get_parent().velocity
+		if (v[0] != 0 || v[1] != 0):
+			update()
 
 	var vision_shape = ConvexPolygonShape2D.new()
 	vision_shape.set_point_cloud(get_vision_shape())
@@ -58,3 +59,13 @@ func _process(delta):
 	self.shape_owner_add_shape(parent_owner_id, vision_shape)
 	pass
 
+func toggle_fov(show):
+	self.show_fov = show
+	if (show):
+		var hearing_points = get_hearing_shape()
+		var vision_points = get_vision_shape()
+		draw_polygon(hearing_points, PoolColorArray([Color(1.0, 0.0, 0.0)]))
+		draw_polygon(vision_points, PoolColorArray([Color(0.0, 1.0, 0.0)]))
+	else:
+		self.shape_owner_clear_shapes(parent_owner_id)
+	update()
