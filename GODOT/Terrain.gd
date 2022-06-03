@@ -4,6 +4,8 @@ var tile_size = 32
 var noise = OpenSimplexNoise.new()
 export var height = 40
 export var width = 100
+export var tree_density = 50
+var tree_density_generator = RandomNumberGenerator.new()
 
 func fill_ground():
 	var ground = get_node("Ground")
@@ -32,7 +34,8 @@ func fill_forests():
 		for y in height:
 			var noise_value = noise.get_noise_2d(x, y)
 			if (noise_value > 0.3 and noise_value < 0.6):
-				trees.set_cell(x*tile_scale, y*tile_scale, trees_tile)
+				if (tree_density_generator.randf_range(0, 100) <= tree_density):
+					trees.set_cell(x*tile_scale, y*tile_scale, trees_tile)
 
 	trees.update_bitmask_region()
 
@@ -41,7 +44,7 @@ var wind_scene = preload("res://Wind.tscn")
 
 func _ready():
 	randomize()
-	print(randi())
+	tree_density_generator.randomize()
 	noise.seed = randi()
 	noise.octaves = 1
 	noise.period = 10

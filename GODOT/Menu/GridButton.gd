@@ -8,10 +8,11 @@ var MAX_TERRAIN_WIDTH = 32 * 100
 var MAX_TERRAIN_HEIGHT = 32 * 40
 
 func _ready():
+	add_entity_btn()
+	
+func add_entity_btn():
 	for i in range(len(persos)):
 		var name = persos[i]
-#		essaye de faire rentrer tous les boutons dans le
-#		container OUH OUH OUH
 		if(len(name) > MAX_BTN_TEXT_LENGTH):
 			name = name.substr(0, MAX_BTN_TEXT_LENGTH)
 		var btn = Button.new()
@@ -36,9 +37,11 @@ func click(name):
 	var root = get_tree().root
 	var formated_scene = "res://Entities/Animals/%s.tscn"
 	var scene_path = formated_scene % name
-	
+	var group_name = name + "Group"
 	var entity_scene = load(scene_path)
 	if entity_scene:
 		var entity = entity_scene.instance()
 		entity.start(random_pos())
+		entity.add_to_group(group_name)
 		root.add_child(entity)
+
