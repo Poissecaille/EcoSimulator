@@ -1,7 +1,9 @@
 extends KinematicBody2D
 
 enum BEHAVIOR {NORMAL, PANIC, WEAK}
+enum STATE {NORMAL, INFECTED}
 export(BEHAVIOR) var Behavior = BEHAVIOR.NORMAL
+export(STATE) var State = STATE.NORMAL
 
 export var speed = 50
 export var MAX_HEALTH = 10
@@ -10,26 +12,24 @@ export var MAX_HUNGER = 10
 var hunger
 var health
 var screen_size
-var terrain
 var currentVelocity = Vector2.ZERO
 var resting = false
 var rng = RandomNumberGenerator.new()
 
 
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
-#	terrain=get_parent().get_node("Terrain")
-#	screen_size = Vector2(terrain.width*32,terrain.height*32)
 	health=MAX_HEALTH
 	hunger=MAX_HUNGER
-	
 	
 func start(pos):
 	position = pos
 	show()
-
+	
+	
 func _process(delta):
 	$AnimatedSprite.play()
 	check_health()
@@ -52,7 +52,15 @@ func update_animation():
 func check_health():
 	if (health< MAX_HEALTH/2):
 		Behavior= BEHAVIOR.WEAK
+	if (health <= 0):
+		queue_free()
 		
+
+func get_infected():
+	State = STATE.INFECTED
+	$InfectionTimer.start()
+	
+
 
 func take_damage(damage):
 	health-= damage
@@ -61,9 +69,6 @@ func take_damage(damage):
 	Behavior= BEHAVIOR.PANIC
 	
 	
-
-
-
 func move(delta):
 	if currentVelocity.length() > 0:
 		match Behavior:
@@ -104,7 +109,6 @@ func _on_MovementTimer_timeout():
 		currentVelocity.x=rng.randi_range(-1,1)
 		currentVelocity.y=rng.randi_range(-1,1)
 	resting = not resting
-	
 
 
 
@@ -112,6 +116,9 @@ func _on_PanicTimer_timeout():
 	Behavior = BEHAVIOR.NORMAL
 	$MovementTimer.set_wait_time(2)
 
-
 func _on_TestActionTimer_timeout():
 	pass
+
+
+func _on_InfectionTimer_timeout():
+	State = STATE.NORMAL
