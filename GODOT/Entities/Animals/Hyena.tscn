@@ -156,12 +156,9 @@ shape = SubResource( 24 )
 [node name="HyenaAnimation" type="AnimatedSprite" parent="."]
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 7 )
-<<<<<<< HEAD
 animation = "idle"
 
 [connection signal="animation_finished" from="HyenaAnimation" to="." method="_on_HyenaAnimation_animation_finished"]
-=======
 animation = "attack"
 
 [connection signal="area_entered" from="FOVPolygon" to="FOVPolygon" method="_on_FOVPolygon_area_entered"]
->>>>>>> e39323fb1fac12cfcbd2f39310820c59cf9ac495
