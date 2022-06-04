@@ -3,15 +3,17 @@ extends Node2D
 
 enum WEATHER {CLEARED,RAINY,FOGGY}
 export(WEATHER) var Weather = WEATHER.CLEARED
-
+export var rain_direction_timer = 5
 var nb_wings = 5
 var seeder
 var terrain
+var fog_texture_size
 var screen_size
 var rain_size
 var wind
 var rain
 var fog
+
 
 func _ready():
 	wind = preload("res://Wind.tscn")
@@ -20,9 +22,9 @@ func _ready():
 	terrain=self.get_parent().get_child(0)
 	seeder=RandomNumberGenerator.new()
 	seeder.randomize()
-	screen_size=Vector2(terrain.width*32,-terrain.height/2) 
-	#update_weather(WEATHER.RAINY)
-	#get_weather()
+	screen_size=Vector2(terrain.width*32,terrain.height*32) 
+	# UPDATE WEATHER TO BIND TO BUTTON
+	# update_weather(WEATHER.CLEARED)
 	
 func weather_cycle():
 	if(Weather == WEATHER.CLEARED):
@@ -48,8 +50,9 @@ func weather_cycle():
 	elif(Weather == WEATHER.FOGGY):
 		nb_wings=0
 		var fog_instance = fog.instance()
+		fog_texture_size=fog_instance.texture.get_size()
 		fog_instance.position=screen_size/2
-		fog_instance.set_scale(Vector2(10,10))
+		fog_instance.set_scale(Vector2(100/(fog_texture_size[0]*100/screen_size[0]),100/(fog_texture_size[1]*100/screen_size[1])))
 		add_child(fog_instance)
 
 func clear_chilren(node):
@@ -65,3 +68,4 @@ func update_weather(weather):
 func get_weather():
 	print(self.Weather)
 	return self.Weather
+
