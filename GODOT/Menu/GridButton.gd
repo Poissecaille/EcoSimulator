@@ -5,7 +5,7 @@ var MAX_BTN_TEXT_LENGTH = 8
 var persos = ["Sheep", "Hyena"]
 var rng = RandomNumberGenerator.new()
 var MAX_TERRAIN_WIDTH = 32 * 100
-var MAX_TERRAIN_HEIGHT = 32 * 40
+var MAX_TERRAIN_HEIGHT = 32 * 100
 
 func _ready():
 	add_entity_btn()
@@ -30,8 +30,8 @@ func random_pos() -> Vector2:
 	rng.randomize()
 	var x = randi() % MAX_TERRAIN_WIDTH
 	var y = randi() % MAX_TERRAIN_HEIGHT
-	return Vector2(x, y)
 
+	return Vector2(x, y)
 
 func click(name):
 	var root = get_tree().root

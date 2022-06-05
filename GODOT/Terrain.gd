@@ -8,6 +8,9 @@ export var tree_density = 50
 var beach_width = 10
 var tree_density_generator = RandomNumberGenerator.new()
 
+export var sheep_number = 10
+export var hyena_number = 10
+
 func fill_ocean():
 	var ocean = get_node("Ocean")
 	var ocean_tile = ocean.tile_set.find_tile_by_name("Ocean")
@@ -57,8 +60,53 @@ func fill_forests():
 
 	trees.update_bitmask_region()
 
-var wind_scene = preload("res://Wind.tscn")
+func spawn_animal(animal, x, y):
+	var root = get_tree().root
+	var vector = Vector2(x, y)
+	var formated_scene = "res://Entities/Animals/%s.tscn"
+	var scene_path = formated_scene % animal
+	var group_name = animal + "Group"
+	var entity_scene = load(scene_path)
+	if entity_scene:
+		var entity = entity_scene.instance()
+		entity.start(vector)
+		entity.add_to_group(group_name)
+		root.call_deferred("add_child", entity)
 
+func random_pos() -> Vector2:
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var x = randi() % (width * 32)
+	var y = randi() % (height * 32)
+
+	return Vector2(x, y)
+
+func fill_sheeps(current_sheeps = 0):
+	if (current_sheeps >= sheep_number):
+		return
+
+	var pos = random_pos()
+	var noise_value = noise.get_noise_2d(pos.x, pos.y)
+	if (noise_value > -0.3 and noise_value < 0):
+		spawn_animal("Sheep", pos.x, pos.y)
+		current_sheeps += 1
+
+	fill_sheeps(current_sheeps)
+
+func fill_hyenas(current_hyenas = 0):
+	if (current_hyenas >= hyena_number):
+		return
+
+	var pos = random_pos()
+
+	var noise_value = noise.get_noise_2d(pos.x, pos.y)
+	if (noise_value > 0 and noise_value < 0.3):
+		spawn_animal("Hyena", pos.x, pos.y)
+		current_hyenas += 1
+
+	fill_hyenas(current_hyenas)
+
+var wind_scene = preload("res://Wind.tscn")
 
 func _ready():
 	randomize()
@@ -79,6 +127,8 @@ func _ready():
 	fill_ground()
 	fill_water()
 	fill_forests()
+	fill_sheeps()
+	fill_hyenas()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

@@ -44,7 +44,7 @@ func want_mate():
 
 func _process(delta):
 	process_hunger(delta)
-	if (Behavior == BEHAVIOR.HUNT || Behavior == BEHAVIOR.Mate) and get_node(target) != null:
+	if (Behavior == BEHAVIOR.HUNT || Behavior == BEHAVIOR.MATE) and get_node(target) != null:
 		var node = get_node(target)
 		var targetPosition = node.position
 		velocity.x = node.position.x - position.x
