@@ -9,7 +9,7 @@ var MAX_TERRAIN_HEIGHT = 32 * 40
 
 func _ready():
 	add_entity_btn()
-	
+
 func add_entity_btn():
 	for i in range(len(persos)):
 		var name = persos[i]
@@ -31,7 +31,7 @@ func random_pos() -> Vector2:
 	var x = randi() % MAX_TERRAIN_WIDTH
 	var y = randi() % MAX_TERRAIN_HEIGHT
 	return Vector2(x, y)
-	
+
 
 func click(name):
 	var root = get_tree().root

@@ -1,10 +1,5 @@
 extends "Animal.gd"
 
-enum BEHAVIOR {NORMAL, PANIC, WEAK}
-enum STATE {NORMAL, INFECTED}
-export(BEHAVIOR) var Behavior = BEHAVIOR.NORMAL
-export(STATE) var State = STATE.NORMAL
-
 var resting = false
 var rng = RandomNumberGenerator.new()
 # Called when the node enters the scene tree for the first time.
@@ -29,9 +24,9 @@ func update_animation():
 		$AnimatedSprite.animation = "walk_bot"
 	if velocity.y < 0:
 		$AnimatedSprite.animation= "walk_top"
-	if velocity.x < 0 && velocity.y ==0: 
+	if velocity.x < 0 && velocity.y ==0:
 		$AnimatedSprite.animation= "walk_left"
-	if velocity.x > 0 && velocity.y ==0: 
+	if velocity.x > 0 && velocity.y ==0:
 		$AnimatedSprite.animation= "walk_right"
 
 func check_health():
@@ -60,8 +55,7 @@ func move(delta):
 			BEHAVIOR.PANIC:
 				velocity = velocity.normalized() * (speed*4)
 		move_and_collide(velocity*delta)
-	
-	
+
 func process_inputs():
 	velocity = Vector2.ZERO
 	if Input.is_action_pressed("move_right"):
@@ -90,3 +84,18 @@ func _on_TestActionTimer_timeout():
 
 func _on_InfectionTimer_timeout():
 	State = STATE.NORMAL
+
+func _on_FOVPolygon_body_entered(body):
+	print("Sheep Entered")
+	if("Sheep" in body.name):
+		if (want_mate()):
+			$FOVPolygon.set_deferred("monitoring", false)
+			Behavior = BEHAVIOR.MATE
+			$CollisionShape2D.set_deferred("disabled", true)
+			target=body.get_path()
+			$MateTimer.start()
+
+	if("Hyena" in body.name):
+		$FOVPolygon.set_deferred("monitoring", false)
+		Behavior = BEHAVIOR.PANIC
+		$PanicTimer.start()

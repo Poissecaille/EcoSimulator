@@ -8,7 +8,7 @@ var parent_owner_id = null
 
 func get_hearing_shape():
 	var points = PoolVector2Array()
-	
+
 	var nb_points = 32
 	var pos = Vector2(0,0)
 	points.push_back(pos)
@@ -20,7 +20,7 @@ func get_hearing_shape():
 
 func get_vision_shape():
 	var points = PoolVector2Array()
-	
+
 	var nb_points = 32
 	var pos = Vector2(0,0)
 	var angle_offset = (180 - self.fov_radius) / 2
@@ -52,9 +52,7 @@ func _process(delta):
 			update()
 		get_node("HearingCollision").get_shape().set_points(get_hearing_shape())
 		get_node("VisionCollision").get_shape().set_points(get_vision_shape())
-		
-	
-	
+
 	var vision_shape = ConvexPolygonShape2D.new()
 	vision_shape.set_point_cloud(get_vision_shape())
 	self.shape_owner_clear_shapes(parent_owner_id)
