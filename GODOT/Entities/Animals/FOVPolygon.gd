@@ -42,19 +42,21 @@ func _draw():
 
 func _ready():
 	self.parent_owner_id = self.create_shape_owner(self.owner)
-	#add_child(collision)
 	pass
 
 func _process(delta):
 	# Drawings
-	if (self.show_fov):
-		var v = get_parent().velocity
-		if (v[0] != 0 || v[1] != 0):
+	var v = get_parent().velocity
+	if (v[0] != 0 || v[1] != 0):
+		if (self.show_fov):
 			update()
-
+		get_node("HearingCollision").get_shape().set_points(get_hearing_shape())
+		get_node("VisionCollision").get_shape().set_points(get_vision_shape())
+		
+	
+	
 	var vision_shape = ConvexPolygonShape2D.new()
 	vision_shape.set_point_cloud(get_vision_shape())
-	get_node("CollisionShape2D").get_shape().set_points(vision_shape.get_points())
 	self.shape_owner_clear_shapes(parent_owner_id)
 	self.shape_owner_add_shape(parent_owner_id, vision_shape)
 	pass

@@ -21,7 +21,6 @@ func _process(delta):
 	check_health()
 	#process_inputs()
 	move(delta)
-	print(velocity)
 	update_animation()
 
 
