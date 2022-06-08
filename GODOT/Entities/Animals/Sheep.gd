@@ -54,6 +54,11 @@ func _on_TestActionTimer_timeout():
 func _on_InfectionTimer_timeout():
 	State = STATE.NORMAL
 
+func want_mate():
+	if (Behavior != BEHAVIOR.MATE):
+		return true
+	return false
+
 func _on_FOVPolygon_body_entered(body):
 	# TODO : Figure out why decting itself
 	if (body == self):

@@ -55,7 +55,7 @@ func _on_HyenaAnimation_animation_finished():
 		hide()
 		$HyenaAnimation.stop()
 
-func want_hunt():
+func want_mate():
 	if (Behavior != BEHAVIOR.MATE):
 		return true
 	return false

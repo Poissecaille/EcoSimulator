@@ -37,7 +37,7 @@ func process_regen(delta):
 		health += regen_rate * delta
 		hunger -= regen_rate * delta
 
-func want_mate():
+func want_hunt():
 	if (State != STATE.NORMAL || Behavior != BEHAVIOR.NORMAL):
 		return false
 	if (hunger < (0.6 * max_hunger)):

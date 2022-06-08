@@ -117,6 +117,7 @@ animations = [ {
 
 [node name="Sheep" type="KinematicBody2D"]
 script = ExtResource( 1 )
+hunger_rate = -0.5
 health = 10
 max_health = 10
 max_hunger = 50
