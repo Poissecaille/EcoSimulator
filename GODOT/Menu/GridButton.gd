@@ -35,13 +35,5 @@ func random_pos() -> Vector2:
 
 func click(name):
 	var root = get_tree().root
-	var formated_scene = "res://Entities/Animals/%s.tscn"
-	var scene_path = formated_scene % name
-	var group_name = name + "Group"
-	var entity_scene = load(scene_path)
-	if entity_scene:
-		var entity = entity_scene.instance()
-		entity.start(random_pos())
-		entity.add_to_group(group_name)
-		root.add_child(entity)
-
+	var terrain = root.get_children()[0].get_node("Terrain")
+	terrain.spawn_animal(name)

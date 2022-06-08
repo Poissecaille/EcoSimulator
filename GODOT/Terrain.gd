@@ -62,8 +62,12 @@ func fill_forests():
 
 	trees.update_bitmask_region()
 
-func spawn_animal(animal, x, y):
-	var vector = Vector2(x, y)
+func spawn_animal(animal, x = null, y = null):
+	var vector
+	if (x == null || y == null):
+		vector = random_pos()
+	else:
+		vector = Vector2(x, y)
 	var formated_scene = "res://Entities/Animals/%s.tscn"
 	var scene_path = formated_scene % animal
 	var group_name = animal + "Group"
