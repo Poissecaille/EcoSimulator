@@ -12,6 +12,8 @@ export var hunger = 100
 export var speed = 200
 
 var target
+var targetNode
+var targetPosition
 
 var velocity = Vector2.ZERO
 
@@ -45,19 +47,7 @@ func want_mate():
 func _process(delta):
 	process_hunger(delta)
 	if (Behavior == BEHAVIOR.HUNT || Behavior == BEHAVIOR.MATE) and get_node(target) != null:
-		var node = get_node(target)
-		var targetPosition = node.position
-		velocity.x = node.position.x - position.x
-		velocity.y = node.position.y - position.y
-
-func _on_MateTimer_timeout():
-	$FOVPolygon.set_deferred("monitoring",true)
-	var node = get_node(target)
-	if node != null:
-		var tmp1 = pow((node.position.x - position.x),2)
-		var tmp2 = pow((node.position.y - position.y),2)
-		if sqrt( tmp1 + tmp2 )< $FOVPolygon.hearing_distance:
-			if node.State == STATE.INFECTED:
-				State = STATE.INFECTED
-	Behavior= BEHAVIOR.NORMAL
-	$CollisionShape2D.set_deferred("disabled",false)
+		targetNode = get_node(target)
+		targetPosition = targetNode.position
+		velocity.x = targetNode.position.x - position.x
+		velocity.y = targetNode.position.y - position.y

@@ -56,7 +56,6 @@ func _on_HyenaAnimation_animation_finished():
 		$HyenaAnimation.stop()
 
 func _on_FOVPolygon_body_entered(body):
-	print(body.name)
 	if("Sheep" in body.name):
 		$FOVPolygon.set_deferred("monitoring", false)
 		Behavior = BEHAVIOR.HUNT

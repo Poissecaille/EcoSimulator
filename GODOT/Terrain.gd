@@ -8,8 +8,10 @@ export var tree_density = 50
 var beach_width = 10
 var tree_density_generator = RandomNumberGenerator.new()
 
-export var sheep_number = 10
-export var hyena_number = 10
+var tree_level = 0.3
+var water_level = -0.3
+export var sheep_number = 5
+export var hyena_number = 5
 
 func fill_ocean():
 	var ocean = get_node("Ocean")
@@ -61,7 +63,6 @@ func fill_forests():
 	trees.update_bitmask_region()
 
 func spawn_animal(animal, x, y):
-	var root = get_tree().root
 	var vector = Vector2(x, y)
 	var formated_scene = "res://Entities/Animals/%s.tscn"
 	var scene_path = formated_scene % animal
@@ -71,7 +72,8 @@ func spawn_animal(animal, x, y):
 		var entity = entity_scene.instance()
 		entity.start(vector)
 		entity.add_to_group(group_name)
-		root.call_deferred("add_child", entity)
+		self.call_deferred("add_child", entity)
+		return entity
 
 func random_pos() -> Vector2:
 	var rng = RandomNumberGenerator.new()
@@ -87,7 +89,7 @@ func fill_sheeps(current_sheeps = 0):
 
 	var pos = random_pos()
 	var noise_value = noise.get_noise_2d(pos.x, pos.y)
-	if (noise_value > -0.3 and noise_value < 0):
+	if (noise_value > water_level and noise_value < tree_level/2):
 		spawn_animal("Sheep", pos.x, pos.y)
 		current_sheeps += 1
 
@@ -100,7 +102,7 @@ func fill_hyenas(current_hyenas = 0):
 	var pos = random_pos()
 
 	var noise_value = noise.get_noise_2d(pos.x, pos.y)
-	if (noise_value > 0 and noise_value < 0.3):
+	if (noise_value > water_level+0.2 and noise_value < tree_level):
 		spawn_animal("Hyena", pos.x, pos.y)
 		current_hyenas += 1
 

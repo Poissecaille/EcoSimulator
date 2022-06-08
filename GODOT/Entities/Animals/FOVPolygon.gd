@@ -3,7 +3,7 @@ extends Area2D
 export var fov_radius = 150
 export var hearing_distance = 80
 export var view_distance = 300
-export var show_fov = true
+export var show_fov = false
 var parent_owner_id = null
 
 func get_hearing_shape():

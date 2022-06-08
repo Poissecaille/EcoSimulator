@@ -4,9 +4,53 @@
 [ext_resource path="res://Assets/6 Sheep/sheep_walk.png" type="Texture" id=2]
 [ext_resource path="res://Entities/Animals/FOVPolygon.gd" type="Script" id=3]
 
+[sub_resource type="ConvexPolygonShape2D" id=21]
+
 [sub_resource type="ConvexPolygonShape2D" id=2]
 
-[sub_resource type="ConvexPolygonShape2D" id=21]
+[sub_resource type="CapsuleShape2D" id=18]
+radius = 13.0
+height = 14.0
+
+[sub_resource type="AtlasTexture" id=19]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 128, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 128, 128, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 256, 128, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 384, 128, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 384, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 128, 384, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 256, 384, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 384, 384, 128, 128 )
 
 [sub_resource type="AtlasTexture" id=10]
 flags = 4
@@ -48,48 +92,18 @@ flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 384, 256, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=6]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 0, 384, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=7]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 128, 384, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=8]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 256, 384, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=9]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 384, 384, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=19]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 0, 128, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=3]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 128, 128, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=4]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 256, 128, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=5]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 384, 128, 128, 128 )
-
 [sub_resource type="SpriteFrames" id=20]
 animations = [ {
+"frames": [ SubResource( 19 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "walk_left",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "walk_right",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
 "name": "walk_top",
@@ -99,21 +113,7 @@ animations = [ {
 "loop": true,
 "name": "walk_bot",
 "speed": 5.0
-}, {
-"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
-"loop": true,
-"name": "walk_right",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 19 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
-"loop": true,
-"name": "walk_left",
-"speed": 5.0
 } ]
-
-[sub_resource type="CapsuleShape2D" id=18]
-radius = 13.0
-height = 14.0
 
 [node name="Sheep" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -130,19 +130,19 @@ fov_radius = 200
 hearing_distance = 50
 view_distance = 100
 
-[node name="HearingCollision" type="CollisionShape2D" parent="FOVPolygon"]
-shape = SubResource( 2 )
-
 [node name="VisionCollision" type="CollisionShape2D" parent="FOVPolygon"]
 shape = SubResource( 21 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 20 )
-animation = "walk_left"
+[node name="HearingCollision" type="CollisionShape2D" parent="FOVPolygon"]
+shape = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource( 18 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 20 )
+animation = "walk_left"
 
 [node name="MovementTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -161,7 +161,15 @@ wait_time = 2.0
 one_shot = true
 autostart = true
 
+[node name="MateCooldownTimer" type="Timer" parent="."]
+
+[node name="MateTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="body_entered" from="FOVPolygon" to="." method="_on_FOVPolygon_body_entered"]
 [connection signal="timeout" from="MovementTimer" to="." method="_on_MovementTimer_timeout"]
 [connection signal="timeout" from="PanicTimer" to="." method="_on_PanicTimer_timeout"]
 [connection signal="timeout" from="InfectionTimer" to="." method="_on_InfectionTimer_timeout"]
 [connection signal="timeout" from="TestActionTimer" to="." method="_on_TestActionTimer_timeout"]
+[connection signal="timeout" from="MateTimer" to="." method="_on_MateTimer_timeout"]
