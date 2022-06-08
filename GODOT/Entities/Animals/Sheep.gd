@@ -28,15 +28,6 @@ func update_animation():
 	if velocity.x > 0 && velocity.y ==0:
 		$AnimatedSprite.animation= "walk_right"
 
-func check_health():
-	if (health < max_health/2):
-		Behavior= BEHAVIOR.WEAK
-	if (health <= 0):
-		queue_free()
-
-func get_infected():
-	State = STATE.INFECTED
-	$InfectionTimer.start()
 
 func take_damage(damage):
 	health-= damage
@@ -44,27 +35,6 @@ func take_damage(damage):
 	$MovementTimer.set_wait_time(0.2)
 	Behavior= BEHAVIOR.PANIC
 
-func move(delta):
-	if velocity.length() > 0:
-		match Behavior:
-			BEHAVIOR.WEAK:
-				velocity = velocity.normalized() * (speed/2)
-			BEHAVIOR.NORMAL:
-				velocity = velocity.normalized() * speed
-			BEHAVIOR.PANIC:
-				velocity = velocity.normalized() * (speed*4)
-		move_and_collide(velocity*delta)
-
-func process_inputs():
-	velocity = Vector2.ZERO
-	if Input.is_action_pressed("move_right"):
-		velocity.x += 1
-	if Input.is_action_pressed("move_left"):
-		velocity.x -= 1
-	if Input.is_action_pressed("move_down"):
-		velocity.y += 1
-	if Input.is_action_pressed("move_up"):
-		velocity.y -= 1
 
 func _on_MovementTimer_timeout():
 	if(resting):

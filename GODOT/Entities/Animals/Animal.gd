@@ -43,6 +43,39 @@ func want_mate():
 	if (hunger < (0.6 * max_hunger)):
 		return false
 	return true
+	
+func check_health():
+	if (health < max_health/2):
+		Behavior= BEHAVIOR.WEAK
+	if (health <= 0):
+		queue_free()
+		
+func get_infected():
+	State = STATE.INFECTED
+	$InfectionTimer.start()
+	
+	
+func move(delta):
+	if velocity.length() > 0:
+		match Behavior:
+			BEHAVIOR.WEAK:
+				velocity = velocity.normalized() * (speed/2)
+			BEHAVIOR.NORMAL:
+				velocity = velocity.normalized() * speed
+			BEHAVIOR.PANIC:
+				velocity = velocity.normalized() * (speed*4)
+		move_and_collide(velocity*delta)
+
+func process_inputs():
+	velocity = Vector2.ZERO
+	if Input.is_action_pressed("move_right"):
+		velocity.x += 1
+	if Input.is_action_pressed("move_left"):
+		velocity.x -= 1
+	if Input.is_action_pressed("move_down"):
+		velocity.y += 1
+	if Input.is_action_pressed("move_up"):
+		velocity.y -= 1
 
 func _process(delta):
 	process_hunger(delta)
