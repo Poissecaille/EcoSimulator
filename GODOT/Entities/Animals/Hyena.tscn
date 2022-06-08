@@ -149,12 +149,14 @@ animations = [ {
 } ]
 
 [node name="Hyena" type="KinematicBody2D"]
-collision_layer = 2
+collision_layer = 3
 script = ExtResource( 1 )
 
 [node name="FOVPolygon" type="Area2D" parent="."]
 collision_layer = 2
 script = ExtResource( 6 )
+hearing_distance = 70
+view_distance = 200
 
 [node name="VisionCollision" type="CollisionShape2D" parent="FOVPolygon"]
 shape = SubResource( 27 )

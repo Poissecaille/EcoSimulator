@@ -128,7 +128,7 @@ speed = 100
 collision_mask = 2
 script = ExtResource( 3 )
 fov_radius = 200
-hearing_distance = 50
+hearing_distance = 40
 view_distance = 100
 
 [node name="VisionCollision" type="CollisionShape2D" parent="FOVPolygon"]

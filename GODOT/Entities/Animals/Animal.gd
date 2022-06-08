@@ -76,8 +76,8 @@ func move(delta):
 				velocity = velocity.normalized() * (speed*4)
 		if is_stuck():
 			while (is_stuck()):
-				position.x = position.x + 10
-				position.y = position.y + 10
+				position.x = position.x + 5
+				position.y = position.y + 5
 		move_and_collide(velocity*delta)
 
 func process_inputs():

@@ -40,8 +40,8 @@ func _on_MovementTimer_timeout():
 	if(resting):
 		velocity = Vector2.ZERO
 	else :
-		velocity.x=rng.randi_range(-2,2)
-		velocity.y=rng.randi_range(-2,2)
+		velocity.x=rng.randi_range(-1,1)
+		velocity.y=rng.randi_range(-1,1)
 	resting = not resting
 
 func _on_PanicTimer_timeout():
