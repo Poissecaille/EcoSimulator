@@ -8,8 +8,6 @@ var parent_owner_id = null
 
 var visionShape
 
-
-
 func get_hearing_shape():
 	var points = PoolVector2Array()
 
@@ -67,15 +65,11 @@ func _ready():
 	hearShape.set_point_cloud(get_hearing_shape())
 	var visionCollision = CollisionShape2D.new()
 	var hearCollision = CollisionShape2D.new()
-	
+
 	visionCollision.set_shape(visionShape)
 	hearCollision.set_shape(hearShape)
 	add_child(visionCollision)
 	add_child(hearCollision)
-	
-	
-	
-	
 	pass
 
 func _process(delta):
@@ -85,8 +79,6 @@ func _process(delta):
 		if (self.show_fov):
 			update()
 		visionShape.set_point_cloud(get_vision_shape())
-
-		
 
 	var vision_shape = ConvexPolygonShape2D.new()
 	vision_shape.set_point_cloud(get_vision_shape())

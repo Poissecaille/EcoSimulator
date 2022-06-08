@@ -54,6 +54,15 @@ func get_infected():
 	State = STATE.INFECTED
 	$InfectionTimer.start()
 
+func is_stuck():
+	var transform2d = get_transform()
+	var down = test_move(transform2d, Vector2(0, 1))
+	var up = test_move(transform2d, Vector2(0, -1))
+	var right = test_move(transform2d, Vector2(1, 0))
+	var left = test_move(transform2d, Vector2(-1, 0))
+
+	return down && up && right && left
+
 func move(delta):
 	if velocity.length() > 0:
 		match Behavior:
@@ -65,6 +74,10 @@ func move(delta):
 				velocity = Vector2.ZERO
 			BEHAVIOR.PANIC:
 				velocity = velocity.normalized() * (speed*4)
+		if is_stuck():
+			while (is_stuck()):
+				position.x = position.x + 10
+				position.y = position.y + 10
 		move_and_collide(velocity*delta)
 
 func process_inputs():

@@ -23,12 +23,12 @@ func fill_ocean():
 	ocean.update_bitmask_region()
 
 func fill_beach():
+	# if ((y < beach_width || y > height - beach_width) || (x < beach_width || x > width - beach_width)):
 	var beach = get_node("Beach")
 	var beach_tile = beach.tile_set.find_tile_by_name("Beach")
 	for x in range(-beach_width, width+beach_width):
 		for y in range(-beach_width, height+beach_width):
-			if ((y < beach_width || y > height - beach_width) || (x < beach_width || x > width - beach_width)):
-				beach.set_cell(x, y, beach_tile)
+			beach.set_cell(x, y, beach_tile)
 	beach.update_bitmask_region()
 
 func fill_ground():

@@ -91,8 +91,8 @@ func _on_MateTimer_timeout():
 				if self.targetNode.State == STATE.INFECTED:
 					State = STATE.INFECTED
 			self.start_mate_cooldown()
+			self.targetNode.Behavior = BEHAVIOR.NORMAL
 			self.targetNode.start_mate_cooldown()
 
 		Behavior = BEHAVIOR.NORMAL
-		self.targetNode.Behavior  =BEHAVIOR.NORMAL
 		$CollisionShape2D.set_deferred("disabled",false)
