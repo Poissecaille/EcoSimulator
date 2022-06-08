@@ -6,6 +6,10 @@ export var view_distance = 300
 export var show_fov = false
 var parent_owner_id = null
 
+var visionShape
+
+
+
 func get_hearing_shape():
 	var points = PoolVector2Array()
 
@@ -42,6 +46,21 @@ func _draw():
 
 func _ready():
 	self.parent_owner_id = self.create_shape_owner(self.owner)
+	visionShape = ConvexPolygonShape2D.new()
+	var hearShape = ConvexPolygonShape2D.new()
+	visionShape.set_point_cloud(get_vision_shape())
+	hearShape.set_point_cloud(get_hearing_shape())
+	var visionCollision = CollisionShape2D.new()
+	var hearCollision = CollisionShape2D.new()
+	
+	visionCollision.set_shape(visionShape)
+	hearCollision.set_shape(hearShape)
+	add_child(visionCollision)
+	add_child(hearCollision)
+	
+	
+	
+	
 	pass
 
 func _process(delta):
@@ -50,8 +69,9 @@ func _process(delta):
 	if (v[0] != 0 || v[1] != 0):
 		if (self.show_fov):
 			update()
-		get_node("HearingCollision").get_shape().set_points(get_hearing_shape())
-		get_node("VisionCollision").get_shape().set_points(get_vision_shape())
+		visionShape.set_point_cloud(get_vision_shape())
+
+		
 
 	var vision_shape = ConvexPolygonShape2D.new()
 	vision_shape.set_point_cloud(get_vision_shape())
