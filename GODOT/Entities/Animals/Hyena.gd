@@ -55,26 +55,32 @@ func _on_HyenaAnimation_animation_finished():
 		hide()
 		$HyenaAnimation.stop()
 
+func want_hunt():
+	if (Behavior != BEHAVIOR.MATE):
+		return true
+	return false
+
 func _on_FOVPolygon_body_entered(body):
 	if("Sheep" in body.name):
-		$FOVPolygon.set_deferred("monitoring", false)
-		Behavior = BEHAVIOR.HUNT
-		$CollisionShape2D.set_deferred("disabled", true)
-		target=body.get_path()
-		$HuntTimer.start()
+		if (want_hunt()):
+			$FOVPolygon.set_deferred("monitoring", false)
+			Behavior = BEHAVIOR.HUNT
+			$CollisionShape2D.set_deferred("disabled", true)
+			self.target=weakref(body)
+			$HuntTimer.start()
 
 	if("Hyena" in body.name):
 		if (want_mate()):
 			$FOVPolygon.set_deferred("monitoring", false)
 			Behavior = BEHAVIOR.MATE
 			$CollisionShape2D.set_deferred("disabled", true)
-			target=body.get_path()
+			self.target=weakref(body)
 			$MateTimer.start()
 
 func _on_HuntTimer_timeout():
 	$FOVPolygon.set_deferred("monitoring",true)
-	var node = get_node(target)
-	if node != null:
+	if target.get_ref() != null:
+		var node = get_node(target.get_ref().get_path())
 		var tmp1 = pow((node.position.x - position.x),2)
 		var tmp2 = pow((node.position.y - position.y),2)
 		if sqrt( tmp1 + tmp2 )< $FOVPolygon.hearing_distance:
@@ -89,3 +95,24 @@ func _on_HuntTimer_timeout():
 func _on_MovementTimer_timeout():
 	velocity.x=rng.randi_range(-2,2)
 	velocity.y=rng.randi_range(-2,2)
+
+func start_mate_cooldown():
+	if ($MateCooldownTimer.time_left >= 0):
+		$MateCooldownTimer.stop()
+		$MateCooldownTimer.set_wait_time(120)
+		$MateCooldownTimer.start()
+
+func _on_MateTimer_timeout():
+	$FOVPolygon.set_deferred("monitoring",true)
+	if self.targetNode.get_ref() != null:
+		var tmp1 = pow((self.targetNode.position.x - position.x),2)
+		var tmp2 = pow((self.targetNode.position.y - position.y),2)
+		if sqrt( tmp1 + tmp2 )< $FOVPolygon.hearing_distance:
+			var child = get_parent().spawn_animal("Hyena", position.x, position.y)
+			child.start_mate_cooldown()
+			if self.targetNode.State == STATE.INFECTED:
+				State = STATE.INFECTED
+		self.start_mate_cooldown()
+		self.targetNode.start_mate_cooldown()
+	Behavior = BEHAVIOR.NORMAL
+	$CollisionShape2D.set_deferred("disabled",false)

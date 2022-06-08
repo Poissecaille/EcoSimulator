@@ -10,8 +10,8 @@ var tree_density_generator = RandomNumberGenerator.new()
 
 var tree_level = 0.3
 var water_level = -0.3
-export var sheep_number = 5
-export var hyena_number = 5
+export var sheep_number = 15
+export var hyena_number = 15
 
 func fill_ocean():
 	var ocean = get_node("Ocean")

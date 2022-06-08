@@ -62,9 +62,9 @@ func _on_FOVPolygon_body_entered(body):
 	if("Sheep" in body.name):
 		if (want_mate() && $MateCooldownTimer.time_left == 0):
 			$FOVPolygon.set_deferred("monitoring", false)
-			Behavior = BEHAVIOR.MATE
 			$CollisionShape2D.set_deferred("disabled", true)
-			target=body.get_path()
+			self.target=weakref(body)
+			self.target.get_ref().Behavior = BEHAVIOR.MATE
 			$MateTimer.set_wait_time(10)
 			$MateTimer.start()
 
@@ -80,16 +80,19 @@ func start_mate_cooldown():
 		$MateCooldownTimer.start()
 
 func _on_MateTimer_timeout():
-	$FOVPolygon.set_deferred("monitoring",true)
-	if self.targetNode != null:
-		var tmp1 = pow((self.targetNode.position.x - position.x),2)
-		var tmp2 = pow((self.targetNode.position.y - position.y),2)
-		if sqrt( tmp1 + tmp2 )< $FOVPolygon.hearing_distance:
-			var child = get_parent().spawn_animal("Sheep", position.x, position.y)
-			child.start_mate_cooldown()
-			if self.targetNode.State == STATE.INFECTED:
-				State = STATE.INFECTED
-		self.start_mate_cooldown()
-		self.targetNode.start_mate_cooldown()
-	Behavior = BEHAVIOR.NORMAL
-	$CollisionShape2D.set_deferred("disabled",false)
+	if self != null:
+		$FOVPolygon.set_deferred("monitoring",true)
+		if self.targetNode != null:
+			var tmp1 = pow((self.targetNode.position.x - position.x),2)
+			var tmp2 = pow((self.targetNode.position.y - position.y),2)
+			if sqrt( tmp1 + tmp2 )< $FOVPolygon.hearing_distance:
+				var child = get_parent().spawn_animal("Sheep", position.x, position.y)
+				child.start_mate_cooldown()
+				if self.targetNode.State == STATE.INFECTED:
+					State = STATE.INFECTED
+			self.start_mate_cooldown()
+			self.targetNode.start_mate_cooldown()
+
+		Behavior = BEHAVIOR.NORMAL
+		self.targetNode.Behavior  =BEHAVIOR.NORMAL
+		$CollisionShape2D.set_deferred("disabled",false)

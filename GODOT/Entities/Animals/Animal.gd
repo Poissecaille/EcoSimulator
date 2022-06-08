@@ -43,18 +43,17 @@ func want_mate():
 	if (hunger < (0.6 * max_hunger)):
 		return false
 	return true
-	
+
 func check_health():
 	if (health < max_health/2):
 		Behavior= BEHAVIOR.WEAK
 	if (health <= 0):
 		queue_free()
-		
+
 func get_infected():
 	State = STATE.INFECTED
 	$InfectionTimer.start()
-	
-	
+
 func move(delta):
 	if velocity.length() > 0:
 		match Behavior:
@@ -62,6 +61,8 @@ func move(delta):
 				velocity = velocity.normalized() * (speed/2)
 			BEHAVIOR.NORMAL:
 				velocity = velocity.normalized() * speed
+			BEHAVIOR.MATE:
+				velocity = Vector2.ZERO
 			BEHAVIOR.PANIC:
 				velocity = velocity.normalized() * (speed*4)
 		move_and_collide(velocity*delta)
@@ -79,8 +80,8 @@ func process_inputs():
 
 func _process(delta):
 	process_hunger(delta)
-	if (Behavior == BEHAVIOR.HUNT || Behavior == BEHAVIOR.MATE) and get_node(target) != null:
-		targetNode = get_node(target)
+	if (Behavior == BEHAVIOR.HUNT || Behavior == BEHAVIOR.MATE) and target != null and target.get_ref() != null:
+		targetNode = get_node(target.get_ref().get_path())
 		targetPosition = targetNode.position
 		velocity.x = targetNode.position.x - position.x
 		velocity.y = targetNode.position.y - position.y
