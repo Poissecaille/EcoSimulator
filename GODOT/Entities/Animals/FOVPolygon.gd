@@ -44,7 +44,22 @@ func _draw():
 		draw_polygon(hearing_points, PoolColorArray([Color(1.0, 0.0, 0.0)]))
 		draw_polygon(vision_points, PoolColorArray([Color(0.0, 1.0, 0.0)]))
 
+func should_render_fov():
+	for entity_name in ["Hyena", "Sheep"]:
+		var group_name = entity_name + "Group"
+		var entities = get_tree().get_nodes_in_group(group_name)
+		if(len(entities) > 0):
+			var fov_polygon = entities[0].get_children()[0]
+			self.toggle_fov(fov_polygon.show_fow)
+
 func _ready():
+##	for entity_name in ["Hyena", "Sheep"]:
+#	var entity_name = "Sheep"
+#	var group_name = entity_name + "Group"
+#	var entities = get_tree().get_nodes_in_group(group_name)
+#	if(len(entities) > 0):
+#		var fov_polygon = entities[0].get_children()[0]
+#		self.toggle_fov(fov_polygon.show_fow)
 	self.parent_owner_id = self.create_shape_owner(self.owner)
 	visionShape = ConvexPolygonShape2D.new()
 	var hearShape = ConvexPolygonShape2D.new()
