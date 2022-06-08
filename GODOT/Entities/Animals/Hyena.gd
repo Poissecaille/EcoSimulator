@@ -1,5 +1,6 @@
 extends "Animal.gd"
 var alive = true
+var rng = RandomNumberGenerator.new()
 
 export var damage = 2
 
@@ -12,8 +13,7 @@ func start(pos):
 	show()
 
 func _process(delta):
-	process_inputs()
-
+	#process_inputs()
 	if self.velocity.length() > 0:
 		self.velocity = self.velocity.normalized() * speed
 	elif self.is_eating:
@@ -84,3 +84,8 @@ func _on_HuntTimer_timeout():
 			hunger = min(hunger+damage*10,100)
 	Behavior= BEHAVIOR.NORMAL
 	$CollisionShape2D.set_deferred("disabled",false)
+
+
+func _on_MovementTimer_timeout():
+	velocity.x=rng.randi_range(-2,2)
+	velocity.y=rng.randi_range(-2,2)
