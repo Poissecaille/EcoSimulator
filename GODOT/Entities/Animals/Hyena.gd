@@ -118,7 +118,7 @@ func _on_MateTimer_timeout():
 				var child_count = rng.randi_range(1, self.max_child_per_mate)
 				for _x in range(0, child_count):
 					var child = get_parent().spawn_animal("Hyena", position.x, position.y)
-					child.start_mate_cooldown()
+					child.call_deferred("start_mate_cooldown")
 				if self.targetMateNode.get_ref().State == STATE.INFECTED:
 					State = STATE.INFECTED
 			self.start_mate_cooldown()
