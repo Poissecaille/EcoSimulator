@@ -54,7 +54,7 @@ func _on_InfectionTimer_timeout():
 	State = STATE.NORMAL
 
 func want_mate():
-	if (Behavior != BEHAVIOR.MATE && $MateCooldownTimer.time_left == 0):
+	if (Behavior != BEHAVIOR.MATE && $MateCooldownTimer.time_left < 1):
 		return true
 	return false
 
@@ -69,6 +69,7 @@ func _on_FOVPolygon_body_entered(body):
 			$CollisionShape2D.set_deferred("disabled", true)
 			self.targetMate=weakref(body)
 			self.targetMate.get_ref().Behavior = BEHAVIOR.MATE
+			self.Behavior = BEHAVIOR.MATE
 			$MateTimer.set_wait_time(10)
 			$MateTimer.start()
 

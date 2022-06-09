@@ -75,8 +75,6 @@ func move(delta):
 				velocity = velocity.normalized() * (speed/2)
 			BEHAVIOR.NORMAL:
 				velocity = velocity.normalized() * speed
-			BEHAVIOR.MATE:
-				velocity = Vector2.ZERO
 			BEHAVIOR.PANIC:
 				velocity = velocity.normalized() * (speed*4)
 		if is_stuck():

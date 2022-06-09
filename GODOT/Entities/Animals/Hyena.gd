@@ -6,6 +6,7 @@ export var damage = 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	rng.randomize()
 	$HyenaAnimation.play()
 
 func start(pos):
@@ -56,7 +57,7 @@ func _on_HyenaAnimation_animation_finished():
 		$HyenaAnimation.stop()
 
 func want_mate():
-	if (Behavior != BEHAVIOR.MATE && $MateCooldownTimer.time_left == 0):
+	if (Behavior != BEHAVIOR.MATE && $MateCooldownTimer.time_left < 1):
 		return true
 	return false
 
