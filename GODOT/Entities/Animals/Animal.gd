@@ -10,10 +10,15 @@ export var max_health = 100
 export var max_hunger = 100
 export var hunger = 100
 export var speed = 200
+export var mate_cooldown = 120
+export var max_child_per_mate = 1
 
-var target
-var targetNode
-var targetPosition
+var targetMate
+var targetMateNode
+var targetMatePosition
+var targetHunt
+var targetHuntNode
+var targetHuntPosition
 
 var velocity = Vector2.ZERO
 
@@ -93,8 +98,14 @@ func process_inputs():
 
 func _process(delta):
 	process_hunger(delta)
-	if (Behavior == BEHAVIOR.HUNT || Behavior == BEHAVIOR.MATE) and target != null and target.get_ref() != null:
-		targetNode = get_node(target.get_ref().get_path())
-		targetPosition = targetNode.position
-		velocity.x = targetNode.position.x - position.x
-		velocity.y = targetNode.position.y - position.y
+	if (Behavior == BEHAVIOR.HUNT and targetHunt != null and targetHunt.get_ref() != null):
+		targetHuntNode = get_node(targetHunt.get_ref().get_path())
+		targetHuntPosition = targetHuntNode.position
+		velocity.x = targetHuntNode.position.x - position.x
+		velocity.y = targetHuntNode.position.y - position.y
+
+	if (Behavior == BEHAVIOR.MATE and targetMate != null and targetMate.get_ref() != null):
+		targetMateNode = get_node(targetMate.get_ref().get_path())
+		targetMatePosition = targetMateNode.position
+		velocity.x = targetMateNode.position.x - position.x
+		velocity.y = targetMateNode.position.y - position.y

@@ -123,6 +123,7 @@ max_health = 10
 max_hunger = 50
 hunger = 50
 speed = 100
+mate_cooldown = 100
 
 [node name="FOVPolygon" type="Area2D" parent="."]
 collision_mask = 2

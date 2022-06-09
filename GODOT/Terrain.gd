@@ -126,7 +126,7 @@ func _ready():
 	#test.seed = randi()
 	#test.persistance = 2
 	#test.lacunarity = 50
-	# noise.get_image(width, height).save_png("res://saved_texture.png")
+	#noise.get_image(width, height).save_png("res://saved_texture.png")
 
 	fill_ocean()
 	fill_beach()

@@ -56,7 +56,7 @@ func _on_HyenaAnimation_animation_finished():
 		$HyenaAnimation.stop()
 
 func want_mate():
-	if (Behavior != BEHAVIOR.MATE):
+	if (Behavior != BEHAVIOR.MATE && $MateCooldownTimer.time_left == 0):
 		return true
 	return false
 
@@ -69,23 +69,23 @@ func _on_FOVPolygon_body_entered(body):
 			$FOVPolygon.set_deferred("monitoring", false)
 			Behavior = BEHAVIOR.HUNT
 			$CollisionShape2D.set_deferred("disabled", true)
-			self.target=weakref(body)
+			self.targetHunt=weakref(body)
 			$HuntTimer.start()
 
 	if("Hyena" in body.name):
-		print(want_mate())
-		if (want_mate() && $MateCooldownTimer.time_left == 0):
+		if (want_mate()):
 			$FOVPolygon.set_deferred("monitoring", false)
 			$CollisionShape2D.set_deferred("disabled", true)
-			self.target=weakref(body)
-			self.target.get_ref().Behavior = BEHAVIOR.MATE
+			self.targetMate=weakref(body)
+			self.targetMate.get_ref().Behavior = BEHAVIOR.MATE
+			self.Behavior = BEHAVIOR.MATE
 			$MateTimer.set_wait_time(10)
 			$MateTimer.start()
 
 func _on_HuntTimer_timeout():
 	$FOVPolygon.set_deferred("monitoring",true)
-	if target.get_ref() != null:
-		var node = get_node(target.get_ref().get_path())
+	if targetHunt.get_ref() != null:
+		var node = get_node(targetHunt.get_ref().get_path())
 		var tmp1 = pow((node.position.x - position.x),2)
 		var tmp2 = pow((node.position.y - position.y),2)
 		if sqrt( tmp1 + tmp2 )< $FOVPolygon.hearing_distance:
@@ -104,23 +104,25 @@ func _on_MovementTimer_timeout():
 func start_mate_cooldown():
 	if ($MateCooldownTimer.time_left >= 0):
 		$MateCooldownTimer.stop()
-		$MateCooldownTimer.set_wait_time(120)
+		$MateCooldownTimer.set_wait_time(self.mate_cooldown)
 		$MateCooldownTimer.start()
 
 func _on_MateTimer_timeout():
 	if self != null:
 		$FOVPolygon.set_deferred("monitoring",true)
-		if self.targetNode != null:
-			var tmp1 = pow((self.targetNode.position.x - position.x),2)
-			var tmp2 = pow((self.targetNode.position.y - position.y),2)
+		if self.targetMateNode != null:
+			var tmp1 = pow((self.targetMateNode.position.x - position.x),2)
+			var tmp2 = pow((self.targetMateNode.position.y - position.y),2)
 			if sqrt( tmp1 + tmp2 )< $FOVPolygon.hearing_distance:
-				var child = get_parent().spawn_animal("Hyena", position.x, position.y)
-				child.start_mate_cooldown()
-				if self.targetNode.State == STATE.INFECTED:
+				var child_count = rng.randi_range(1, self.max_child_per_mate)
+				for _x in range(0, child_count):
+					var child = get_parent().spawn_animal("Hyena", position.x, position.y)
+					child.start_mate_cooldown()
+				if self.targetMateNode.State == STATE.INFECTED:
 					State = STATE.INFECTED
 			self.start_mate_cooldown()
-			self.targetNode.Behavior = BEHAVIOR.NORMAL
-			self.targetNode.start_mate_cooldown()
+			self.targetMateNode.Behavior = BEHAVIOR.NORMAL
+			self.targetMateNode.start_mate_cooldown()
 
 		Behavior = BEHAVIOR.NORMAL
 		$CollisionShape2D.set_deferred("disabled",false)
