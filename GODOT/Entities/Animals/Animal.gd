@@ -103,7 +103,7 @@ func _process(delta):
 		velocity.y = targetHuntNode.position.y - position.y
 
 	if (Behavior == BEHAVIOR.MATE and targetMate != null and targetMate.get_ref() != null):
-		targetMateNode = get_node(targetMate.get_ref().get_path())
-		targetMatePosition = targetMateNode.position
-		velocity.x = targetMateNode.position.x - position.x
-		velocity.y = targetMateNode.position.y - position.y
+		targetMateNode = weakref(get_node(targetMate.get_ref().get_path()))
+		targetMatePosition = targetMateNode.get_ref().position
+		velocity.x = targetMateNode.get_ref().position.x - position.x
+		velocity.y = targetMateNode.get_ref().position.y - position.y
