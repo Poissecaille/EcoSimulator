@@ -12,8 +12,8 @@ __meta__ = {
 }
 
 [node name="Terrain" parent="." instance=ExtResource( 1 )]
-sheep_number = 29
-hyena_number = 50
+sheep_number = 30
+hyena_number = 10
 
 [node name="Weather" parent="." instance=ExtResource( 2 )]
 
